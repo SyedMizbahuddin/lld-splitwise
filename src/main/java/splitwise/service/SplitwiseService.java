@@ -98,7 +98,7 @@ public class SplitwiseService {
 
 		while (iterator.hasNext()) {
 			User curr = iterator.next();
-			writer.printNewLine(curr.toString());
+			writer.printNewLine("id : " + curr.getId() + "  name : " + curr.getUserName());
 		}
 	}
 
@@ -108,12 +108,12 @@ public class SplitwiseService {
 
 		while (expenseIterator.hasNext()) {
 			Expense currExpense = expenseIterator.next();
-			writer.printNewLine(currExpense.toString());
-			List<Debt> debts = debtRepository.findByExpenseId(currExpense.getId());
-
-			Iterator<Debt> debtIterator = debts.iterator();
-
 			User debtor = userRepository.findById(currExpense.getDebtorId());
+			writer.printNewLine(debtor.getUserName() + " paid " + currExpense.getAmount() + " for " + currExpense
+					.getName());
+
+			List<Debt> debts = debtRepository.findByExpenseId(currExpense.getId());
+			Iterator<Debt> debtIterator = debts.iterator();
 
 			while (debtIterator.hasNext()) {
 				Debt currDebt = debtIterator.next();

@@ -16,6 +16,7 @@ public class ListDebtCommand extends Command {
 		super.execute(token);
 		int userId = Integer.parseInt(token[1]);
 		splitwiseService.listDebts(userId);
+		writer.printNewLine("");
 	}
 
 	@Override
@@ -24,16 +25,16 @@ public class ListDebtCommand extends Command {
 	}
 
 	@Override
-	public boolean valid(String[] token) {
+	public ValidationCheck valid(String[] token) {
 		if (token.length != 2) {
-			return false;
+			return check(false, "require exactly 2 tokens");
 		}
 
 		int userId = Integer.parseInt(token[1]);
 		if (!splitwiseService.userExists(userId)) {
-			return false;
+			return check(false, "user with " + userId + " does not exist");
 		}
-		return true;
+		return check(true);
 	}
 
 }

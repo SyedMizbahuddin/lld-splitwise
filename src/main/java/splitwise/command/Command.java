@@ -15,14 +15,24 @@ public abstract class Command {
 	}
 
 	public void execute(String[] token) {
-		if (!valid(token)) {
-			// TODO incorrect token exception
-			throw new IncorrectCommandException("Incorrect Command token found");
+		ValidationCheck validationCheck = valid(token);
+		if (!validationCheck.valid()) {
+			throw new IncorrectCommandException("Incorrect Command token for " + getCommandName() + " : "
+					+ validationCheck.message());
 		}
+
 //		writer.printNewLine("Executing command " + getCommandName());
 	}
 
-	public abstract boolean valid(String[] token);
+	public abstract ValidationCheck valid(String[] token);
 
 	public abstract String getCommandName();
+
+	public ValidationCheck check(boolean valid, String message) {
+		return new ValidationCheck(valid, message);
+	}
+
+	public ValidationCheck check(boolean valid) {
+		return new ValidationCheck(valid, "");
+	}
 }

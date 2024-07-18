@@ -16,6 +16,7 @@ public class AddUserCommand extends Command {
 		super.execute(token);
 		int userId = splitwiseService.addUser(token[1]);
 		writer.printNewLine("New user created with Id : " + userId);
+		writer.printNewLine("");
 	}
 
 	@Override
@@ -24,9 +25,10 @@ public class AddUserCommand extends Command {
 	}
 
 	@Override
-	public boolean valid(String[] token) {
+	public ValidationCheck valid(String[] token) {
 		// we expect only one words
-		return token.length == 2;
+
+		return check(token.length == 2, "require exactly 2 tokens");
 	}
 
 }

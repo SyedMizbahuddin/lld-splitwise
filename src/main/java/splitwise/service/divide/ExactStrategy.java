@@ -6,7 +6,7 @@ import java.util.List;
 import splitwise.exception.IncorrectDivisionException;
 import splitwise.model.DividedAmount;
 
-public class ExactStrategy implements DivideStrategy {
+public class ExactStrategy extends DivideStrategy {
 
 	public final static String STRATEGY_NAME = "EXACT";
 

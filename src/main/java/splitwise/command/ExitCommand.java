@@ -23,8 +23,8 @@ public class ExitCommand extends Command {
 	}
 
 	@Override
-	public boolean valid(String[] token) {
-		return token.length == 1;
+	public ValidationCheck valid(String[] token) {
+		return check(token.length == 1, "require exactly 1 tokens");
 	}
 
 }

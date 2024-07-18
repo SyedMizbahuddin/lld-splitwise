@@ -39,7 +39,7 @@ public class AddExpenseCommand extends Command {
 		int amount = Integer.parseInt(token[ind++]);
 
 		List<Integer> divison = new ArrayList<>();
-		for (int i = 0; i < totalDebtees; i++) {
+		for (int i = 0; i < totalDebtees && ind < token.length; i++) {
 			divison.add(Integer.parseInt(token[ind++]));
 		}
 
@@ -49,6 +49,7 @@ public class AddExpenseCommand extends Command {
 		splitwiseService.addExpense(token[1], amount, paidBy, dividedAmount);
 
 		writer.printNewLine("New expense added");
+		writer.printNewLine("");
 
 	}
 
@@ -58,11 +59,11 @@ public class AddExpenseCommand extends Command {
 	}
 
 	@Override
-	public boolean valid(String[] token) {
+	public ValidationCheck valid(String[] token) {
 		// add_expense name paidBy format count x x x amount (x x x)
 		// atleast 5
 		if (token.length < 8) {
-			return false;
+			return check(false, "require atleast 8 tokens");
 		}
 
 		try {
@@ -70,7 +71,7 @@ public class AddExpenseCommand extends Command {
 			String format = token[3];
 
 			if (!divideFactory.valid(format)) {
-				return false;
+				return check(false, format + " format does not exist");
 			}
 			int totalDebtees = Integer.parseInt(token[4]);
 			// Now the rest length should be
@@ -80,35 +81,39 @@ public class AddExpenseCommand extends Command {
 			int restLength = token.length - 4;
 
 			if (restLength != totalDebtees + 2 && restLength != 2 * totalDebtees + 2) {
-				return false;
+				return check(false, "insufficient token length");
 			}
-			List<Integer> userIds = new ArrayList<>();
-			userIds.add(paidBy);
+
+			if (!splitwiseService.userExists(paidBy)) {
+				return check(false, "debtor user with id " + paidBy + " does not exist");
+			}
 
 			// from count all are int
 			int ind = 5;
 			for (int i = 0; i < totalDebtees; i++) {
-				userIds.add(Integer.parseInt(token[ind++]));
+				int debteeId = Integer.parseInt(token[ind++]);
+
+				if (!splitwiseService.userExists(debteeId)) {
+					return check(false, "debtee user with id " + debteeId + " does not exist");
+				}
+
+//				if (debteeId == paidBy) {
+//					return check(false, "debtee user with id " + debteeId + " is also the debtor");
+//				}
 			}
 
 			int amount = Integer.parseInt(token[ind++]);
 
 			List<Integer> divison = new ArrayList<>();
-			for (int i = 0; i < totalDebtees; i++) {
+			for (int i = 0; i < totalDebtees && ind < token.length; i++) {
 				divison.add(Integer.parseInt(token[ind++]));
 			}
 
-			for (int userId : userIds) {
-				if (!splitwiseService.userExists(userId)) {
-					return false;
-				}
-			}
-
 		} catch (NumberFormatException e) {
-			return false;
+			return check(false, e.getMessage());
 		}
 
-		return true;
+		return check(true);
 	}
 
 }

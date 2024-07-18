@@ -4,7 +4,11 @@ import java.util.List;
 
 import splitwise.model.DividedAmount;
 
-public interface DivideStrategy {
+public abstract class DivideStrategy {
 
-	List<DividedAmount> divide(int amount, List<Integer> users, List<Integer> division);
+	public abstract List<DividedAmount> divide(int amount, List<Integer> users, List<Integer> division);
+
+	double convert(double number) {
+		return ((long) (number * 100)) / 100.0;
+	}
 }

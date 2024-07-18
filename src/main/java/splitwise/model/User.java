@@ -2,7 +2,6 @@ package splitwise.model;
 
 public class User extends Entity {
 	String userName;
-	int id;
 
 	public User(String userName) {
 		super();
