@@ -19,7 +19,7 @@ public abstract class Command {
 			// TODO incorrect token exception
 			throw new IncorrectCommandException("Incorrect Command token found");
 		}
-		writer.printNewLine("Executing command " + getCommandName());
+//		writer.printNewLine("Executing command " + getCommandName());
 	}
 
 	public abstract boolean valid(String[] token);

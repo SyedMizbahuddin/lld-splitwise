@@ -3,19 +3,18 @@ package splitwise.command;
 import splitwise.service.SplitwiseService;
 import splitwise.writer.OutputWriter;
 
-public class AddUserCommand extends Command {
+public class ListExpenseCommand extends Command {
 
-	AddUserCommand(SplitwiseService splitwiseService, OutputWriter writer) {
+	ListExpenseCommand(SplitwiseService splitwiseService, OutputWriter writer) {
 		super(splitwiseService, writer);
 	}
 
-	public static final String commandName = "add_user";
+	public static final String commandName = "list_expenses";
 
 	@Override
 	public void execute(String[] token) {
 		super.execute(token);
-		int userId = splitwiseService.addUser(token[1]);
-		writer.printNewLine("New user created with Id : " + userId);
+		splitwiseService.listExpenses();
 	}
 
 	@Override
@@ -25,8 +24,7 @@ public class AddUserCommand extends Command {
 
 	@Override
 	public boolean valid(String[] token) {
-		// we expect only one words
-		return token.length == 2;
+		return token.length == 1;
 	}
 
 }

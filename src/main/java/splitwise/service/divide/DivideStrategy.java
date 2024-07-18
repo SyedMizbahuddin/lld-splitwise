@@ -6,5 +6,5 @@ import splitwise.model.DividedAmount;
 
 public interface DivideStrategy {
 
-	List<DividedAmount> divide(int amount, List<Integer> users, List<Double> division);
+	List<DividedAmount> divide(int amount, List<Integer> users, List<Integer> division);
 }

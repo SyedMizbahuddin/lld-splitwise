@@ -30,4 +30,8 @@ public abstract class AbstractRepository<E extends Entity> {
 		return repository.values();
 	}
 
+	public boolean existById(int id) {
+		return repository.containsKey(id);
+	}
+
 }

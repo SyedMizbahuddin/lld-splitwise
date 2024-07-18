@@ -47,7 +47,7 @@ public class SplitwiseService {
 		return user.getId();
 	}
 
-	public void ShowDebts(int userId) {
+	public void listDebts(int userId) {
 		Collection<Debt> allDebts = debtRepository.findAll();
 		Iterator<Debt> iterator = allDebts.iterator();
 
@@ -81,6 +81,7 @@ public class SplitwiseService {
 			if (amount < 0) {
 				debtorUser = debteeUser;
 				debteeUser = user;
+				amount = -amount;
 			}
 			balance = true;
 			writer.printNewLine(debtorUser.getUserName() + " owes " + debteeUser.getUserName() + " : " + amount);
@@ -99,6 +100,31 @@ public class SplitwiseService {
 		while (iterator.hasNext()) {
 			User curr = iterator.next();
 			writer.printNewLine(curr.toString());
+		}
+	}
+
+	public void listExpenses() {
+		Collection<Expense> expenses = expenseRepository.findAll();
+		Iterator<Expense> expenseIterator = expenses.iterator();
+
+		while (expenseIterator.hasNext()) {
+			Expense currExpense = expenseIterator.next();
+			writer.printNewLine(currExpense.toString());
+			List<Debt> debts = debtRepository.findByExpenseId(currExpense.getId());
+
+			Iterator<Debt> debtIterator = debts.iterator();
+
+			User debtor = userRepository.findById(currExpense.getDebtorId());
+
+			while (debtIterator.hasNext()) {
+				Debt currDebt = debtIterator.next();
+				User debtee = userRepository.findById(currDebt.getDebteeId());
+
+				writer.printNewLine(debtor.getUserName() + " owes " + debtee.getUserName() + " : " + currDebt
+						.getAmount());
+			}
+			writer.printNewLine("");
+
 		}
 	}
 }
