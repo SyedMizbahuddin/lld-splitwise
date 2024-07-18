@@ -82,11 +82,28 @@ public class AddExpenseCommand extends Command {
 			if (restLength != totalDebtees + 2 && restLength != 2 * totalDebtees + 2) {
 				return false;
 			}
+			List<Integer> userIds = new ArrayList<>();
+			userIds.add(paidBy);
 
 			// from count all are int
-			for (int i = 4; i < token.length; i++) {
-				int isNumber = Integer.parseInt(token[i]);
+			int ind = 5;
+			for (int i = 0; i < totalDebtees; i++) {
+				userIds.add(Integer.parseInt(token[ind++]));
 			}
+
+			int amount = Integer.parseInt(token[ind++]);
+
+			List<Integer> divison = new ArrayList<>();
+			for (int i = 0; i < totalDebtees; i++) {
+				divison.add(Integer.parseInt(token[ind++]));
+			}
+
+			for (int userId : userIds) {
+				if (!splitwiseService.userExists(userId)) {
+					return false;
+				}
+			}
+
 		} catch (NumberFormatException e) {
 			return false;
 		}

@@ -30,6 +30,9 @@ public class ListDebtCommand extends Command {
 		}
 
 		int userId = Integer.parseInt(token[1]);
+		if (!splitwiseService.userExists(userId)) {
+			return false;
+		}
 		return true;
 	}
 

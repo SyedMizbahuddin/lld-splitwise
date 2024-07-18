@@ -79,12 +79,11 @@ public class SplitwiseService {
 			User debteeUser = userRepository.findById(otherUserId);
 
 			if (amount < 0) {
-				debtorUser = debteeUser;
-				debteeUser = user;
-				amount = -amount;
+				writer.printNewLine(debtorUser.getUserName() + " to pay " + debteeUser.getUserName() + " : " + -amount);
+			} else {
+				writer.printNewLine(debtorUser.getUserName() + " owes " + debteeUser.getUserName() + " : " + amount);
 			}
 			balance = true;
-			writer.printNewLine(debtorUser.getUserName() + " owes " + debteeUser.getUserName() + " : " + amount);
 		}
 
 		if (!balance) {
@@ -126,5 +125,9 @@ public class SplitwiseService {
 			writer.printNewLine("");
 
 		}
+	}
+
+	public boolean userExists(int userId) {
+		return userRepository.existById(userId);
 	}
 }
