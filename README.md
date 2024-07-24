@@ -1,3 +1,4 @@
+```
 add_user syed1
 add_user syed2
 add_user syed3
@@ -16,3 +17,5 @@ add_expense dal 1 PERCENT 3 2 3 4 100 50 30 20
 list_debts 1
 list_expenses
 exit
+
+```
