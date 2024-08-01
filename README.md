@@ -4,7 +4,7 @@
 * Add Users to application
   * Takes name as input
   ``` 
-  add_user [user-name]
+  add_user {user-name}
   ````
 * List users
   ``` 
@@ -12,13 +12,13 @@
   ````
 * Add Expense to application, multiple formats
   ``` 
-  add_expense vada [debtorId] EQUAL [count-of-debtee] [.debtor-ids.] [amount]
+  add_expense vada {debtor-id} EQUAL {count-of-debtee} {..debtee-ids..} {amount}
   add_expense vada 1 EQUAL 7 2 3 4 5 6 7 8 100
 
-  add_expense vada [debtor-id] EXACT [count-of-debtee] [.debtor-ids.] [amount] [..amount-divisions..]
+  add_expense vada {debtor-id} EXACT {count-of-debtee} {..debtee-ids..} {amount} {..amount-divisions..}
   add_expense vada 2 EXACT 1 1 100 100
 
-  add_expense vada [debtor-id] PERCENT [count-of-debtee] [.debtor-ids.] [amount] [..percent-divisions..]
+  add_expense vada {debtor-id} PERCENT {count-of-debtee} {..debtee-ids..} {amount} {..percent-divisions..}
   add_expense dal 1 PERCENT 3 2 3 4 100 50 30 20
   ````
 * List all the expenses
@@ -27,7 +27,7 @@
   ````
 * List debts of a user
   ``` 
-  list_debts [user-id]
+  list_debts {user-id}
   ````
 * Stop the application
   ``` 
