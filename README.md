@@ -1,4 +1,9 @@
 
+# Splitwise
+
+This is the low level design of Splitwise - Expense sharing application.
+An expense sharing application is where you can add your expenses and split it among different people. The app keeps balances between people as in who owes how much to whom.
+
 ## Problem statement / requirements
 
 * Add Users to application
@@ -56,6 +61,7 @@ list_debts 1
 list_expenses
 exit
 
+
 ```
 
 ## Patterns used
@@ -66,7 +72,7 @@ exit
   * Output Mode (Command Line / File ...)
 * Factory Pattern
   * For division
-  * For multiple commands
+  * For commands
 * Command Pattern
   * For handling commands as input
 * Singleton Pattern
